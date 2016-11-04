@@ -14,6 +14,15 @@ public class Card {
     private String rarity;
     private String text;
     private String power;
+    private String colors;
+
+    public String getColors() {
+        return colors;
+    }
+
+    public void setColors(String colors) {
+        this.colors = colors;
+    }
 
     public String getName() {
         return name;
@@ -63,6 +72,7 @@ public class Card {
                 ", rarity='" + rarity + '\'' +
                 ", text='" + text + '\'' +
                 ", power='" + power + '\'' +
+                ", colors='" + colors + '\'' +
                 '}';
     }
 }

@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -91,6 +93,9 @@ public class MainActivityFragment extends Fragment {
     private class RefreshDataTask extends AsyncTask<Void, Object, ArrayList<Card>> {
         @Override
         protected ArrayList<Card> doInBackground(Void... voids) {
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
             CardsAPI api = new CardsAPI();
             ArrayList<Card> result = api.getAllCards();
 

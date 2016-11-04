@@ -1,6 +1,7 @@
 package com.example.user.magicgatherin;
 
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,55 +10,61 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CardsAPI {
+class CardsAPI {
 
-    private final String BASE_URL = "http://api.magicthegathering.io/v1/cards";
+    private final String BASE_URL = "https://docs.magicthegathering.io/#get-all-cards";
 
-    ArrayList<Card> getAllCards(){
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .build();
-        String url = builtUri.toString();
+        ArrayList<Card> getAllCards() {
+            Uri builtUri = Uri.parse(BASE_URL)
+                    .buildUpon()
+                    .appendPath("name")
+                    .build();
+            String url = builtUri.toString();
 
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            ArrayList<Card> carta = new ArrayList<>();
-
-            JSONObject data = new JSONObject(JsonResponse);
-            JSONArray jsonCartas = data.getJSONArray("cards");
-
-            for (int i = 0; i <jsonCartas.length() ; i++) {
-                Card card = new Card();
-                JSONObject object = jsonCartas.getJSONObject(i);
-                card.setName(object.getString("name"));
-                card.setType(object.getString("type"));
-                carta.add(card);
+            return doCall(url);
             }
 
-            return carta;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    ArrayList<Card> getRarity(String pais) {
+                Uri builtUri = Uri.parse(BASE_URL)
+                                .buildUpon()
+                                .appendPath("name")
+                                .appendPath("rarity")
+                                .build();
+                String url = builtUri.toString();
+        return doCall(url);
+            }
 
-    String getCardsTypes(String pais) {
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath("name")
-                .appendPath("type")
-                .build();
-        String url = builtUri.toString();
-
+    @Nullable
+    private ArrayList<Card> doCall(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
-            return JsonResponse;
+            return processJson(JsonResponse);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
-    }
+            }
 
+    private ArrayList<Card> processJson(String jsonResponse) {
+                ArrayList<Card> cards = new ArrayList<>();
+                try {
+                        JSONObject data = new JSONObject(jsonResponse);
+                        JSONArray jsonMovies = data.getJSONArray("movies");
+                        for (int i = 0; i < jsonMovies.length(); i++) {
+                                JSONObject jsonMovie = jsonMovies.getJSONObject(i);
+
+                                        Card cartes = new Card();
+                                cartes.setName(jsonMovie.getString("name"));
+                                cartes.setType(jsonMovie.getString("type"));
+                                cartes.setRarity(jsonMovie.getString("rarity"));
+
+
+                                        cards.add(cartes);
+                            }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                        return cards;
+            }
 }
