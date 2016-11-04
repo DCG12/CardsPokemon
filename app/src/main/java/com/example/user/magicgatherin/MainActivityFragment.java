@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.util.Log;
+import android.os.AsyncTask;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -82,5 +84,30 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refresh() {
+        RefreshDataTask task = new RefreshDataTask();
+        task.execute();
+
+    }
+    private class RefreshDataTask extends AsyncTask<Void, Object, ArrayList<Card>> {
+        @Override
+        protected ArrayList<Card> doInBackground(Void... voids) {
+            CardsAPI api = new CardsAPI();
+            ArrayList<Card> result = api.getAllCards();
+
+            Log.d("DEBUG", result.toString());
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Card> carta) {
+
+            super.onPostExecute(carta);
+
+            adapter.clear();
+            for (int i = 0; i < carta.size(); i++) {
+                adapter.add(carta.get(i).getName());
+            }
+        }
     }
 }
