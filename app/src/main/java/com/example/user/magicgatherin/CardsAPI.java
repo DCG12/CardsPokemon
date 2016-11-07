@@ -10,61 +10,66 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-class CardsAPI {
+public class CardsAPI {
 
-    private final String BASE_URL = "https://docs.magicthegathering.io/#get-all-cards";
+    private final String BASE_URL = "http://api.magicthegathering.io/v1/cards";
 
-        ArrayList<Card> getAllCards() {
-            Uri builtUri = Uri.parse(BASE_URL)
-                    .buildUpon()
-                    .appendPath("name")
-                    .build();
-            String url = builtUri.toString();
-
-            return doCall(url);
-            }
-
-    ArrayList<Card> getRarity(String pais) {
+                ArrayList<Card> getAllCards(){
                 Uri builtUri = Uri.parse(BASE_URL)
                                 .buildUpon()
-                                .appendPath("name")
-                                .appendPath("rarity")
                                 .build();
                 String url = builtUri.toString();
-        return doCall(url);
-            }
 
-    @Nullable
-    private ArrayList<Card> doCall(String url) {
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return processJson(JsonResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-            }
+                        try {
+                        String JsonResponse = HttpUtils.get(url);
+                        ArrayList<Card> carta = new ArrayList<>();
 
-    private ArrayList<Card> processJson(String jsonResponse) {
-                ArrayList<Card> cards = new ArrayList<>();
-                try {
-                        JSONObject data = new JSONObject(jsonResponse);
-                        JSONArray jsonMovies = data.getJSONArray("movies");
-                        for (int i = 0; i < jsonMovies.length(); i++) {
-                                JSONObject jsonMovie = jsonMovies.getJSONObject(i);
+                                JSONObject data = new JSONObject(JsonResponse);
+                        JSONArray jsonCartas = data.getJSONArray("cards");
 
-                                        Card cartes = new Card();
-                                cartes.setName(jsonMovie.getString("name"));
-                                cartes.setType(jsonMovie.getString("type"));
-                                cartes.setRarity(jsonMovie.getString("rarity"));
-
-
-                                        cards.add(cartes);
+                                for (int i = 0; i <jsonCartas.length() ; i++) {
+                                Card card = new Card();
+                                JSONObject object = jsonCartas.getJSONObject(i);
+                                card.setName(object.getString("name"));
+                                    card.setType(object.getString("type"));
+                                carta.add(card);
                             }
+
+                                return carta;
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                return null;
+            }
 
-                        return cards;
+                ArrayList<Card> getCardsTypes() {
+                    Uri builtUri = Uri.parse(BASE_URL)
+                            .buildUpon()
+                            .build();
+                    String url = builtUri.toString();
+
+                    try {
+                        String JsonResponse = HttpUtils.get(url);
+                        ArrayList<Card> carta = new ArrayList<>();
+
+                        JSONObject data = new JSONObject(JsonResponse);
+                        JSONArray jsonCartas = data.getJSONArray("cards");
+
+                        for (int i = 0; i <jsonCartas.length() ; i++) {
+                            Card card = new Card();
+                            JSONObject object = jsonCartas.getJSONObject(i);
+                            card.setType(object.getString("type"));
+                            carta.add(card);
+                        }
+
+                        return carta;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
             }
 }
