@@ -31,7 +31,8 @@ public class CardsAPI {
                                 Card card = new Card();
                                 JSONObject object = jsonCartas.getJSONObject(i);
                                 card.setName(object.getString("name"));
-                                    card.setType(object.getString("type"));
+                                card.setType(object.getString("type"));
+                                    card.setRarity(object.getString("rarity"));
                                 carta.add(card);
                             }
 
@@ -44,7 +45,7 @@ public class CardsAPI {
                 return null;
             }
 
-                ArrayList<Card> getCardsTypes() {
+                ArrayList<Card> getCardsRarity() {
                     Uri builtUri = Uri.parse(BASE_URL)
                             .buildUpon()
                             .build();
@@ -60,7 +61,7 @@ public class CardsAPI {
                         for (int i = 0; i <jsonCartas.length() ; i++) {
                             Card card = new Card();
                             JSONObject object = jsonCartas.getJSONObject(i);
-                            card.setType(object.getString("type"));
+                            card.setRarity(object.getString("rarity"));
                             carta.add(card);
                         }
 

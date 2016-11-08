@@ -95,11 +95,17 @@ public class MainActivityFragment extends Fragment {
         protected ArrayList<Card> doInBackground(Void... voids) {
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
+            String rarity = preferences.getString("rarity", "Rare");
+            String tipusConsulta = preferences.getString("tipus_consulta", "rareza");
             CardsAPI api = new CardsAPI();
-            ArrayList<Card> result = api.getAllCards();
+            ArrayList<Card> result = null;
+            if (tipusConsulta.equals("rareza")) {
+                                result = api.getCardsRarity();
+                            } else {
+                                result = api.getAllCards();
+                            }
 
-            Log.d("DEBUG", result.toString());
+            Log.d("DEBUG", result != null ? result.toString() : null);
 
             return result;
         }
@@ -111,8 +117,7 @@ public class MainActivityFragment extends Fragment {
 
             adapter.clear();
             for (int i = 0; i < carta.size(); i++) {
-                //adapter.add(carta.get(i).getName());
-                adapter.add(carta.get(i).getType() + " // " + carta.get(i).getName());
+                adapter.add(carta.get(i).getName() + "//" + carta.get(i).getRarity());
             }
         }
     }

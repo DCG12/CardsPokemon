@@ -3,9 +3,6 @@ package com.example.user.magicgatherin;
 /**
  * Created by user on 04/11/2016.
  */
-import android.text.TextUtils;
-
-import java.util.ArrayList;
 
 public class Card {
 
@@ -14,13 +11,13 @@ public class Card {
     private String rarity;
     private String text;
     private String power;
-    private String colors;
+    private String[] colors;
 
-    public String getColors() {
+    public String[] getColors() {
         return colors;
     }
 
-    public void setColors(String colors) {
+    public void setColors(String[] colors) {
         this.colors = colors;
     }
 
