@@ -23,8 +23,8 @@ import android.content.SharedPreferences;
  */
 public class MainActivityFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Card> items;
+    private ArrayAdapter<Card> adapter;
 
     public MainActivityFragment() {
     }
@@ -116,7 +116,7 @@ public class MainActivityFragment extends Fragment {
 
             adapter.clear();
             for (int i = 0; i < carta.size(); i++) {
-                adapter.add(carta.get(i).getName() + " / " + carta.get(i).getRarity() + " / " + carta.get(i).getColors());
+                adapter.add(carta);
             }
         }
     }
