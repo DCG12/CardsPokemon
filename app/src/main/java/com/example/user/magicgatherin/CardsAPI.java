@@ -45,9 +45,10 @@ public class CardsAPI {
                 return null;
             }
 
-                ArrayList<Card> getCardsRarity() {
+                ArrayList<Card> getCardsRarity(String rareza) {
                     Uri builtUri = Uri.parse(BASE_URL)
                             .buildUpon()
+                            .appendQueryParameter("rarity", rareza)
                             .build();
                     String url = builtUri.toString();
 
@@ -61,6 +62,7 @@ public class CardsAPI {
                         for (int i = 0; i <jsonCartas.length() ; i++) {
                             Card card = new Card();
                             JSONObject object = jsonCartas.getJSONObject(i);
+                            card.setName(object.getString("name"));
                             card.setRarity(object.getString("rarity"));
                             carta.add(card);
                         }
@@ -73,4 +75,66 @@ public class CardsAPI {
                     }
                     return null;
             }
+
+    ArrayList<Card> getCardsType(String tipo) {
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendQueryParameter("type", tipo)
+                .build();
+        String url = builtUri.toString();
+
+        try {
+            String JsonResponse = HttpUtils.get(url);
+            ArrayList<Card> carta = new ArrayList<>();
+
+            JSONObject data = new JSONObject(JsonResponse);
+            JSONArray jsonCartas = data.getJSONArray("cards");
+
+            for (int i = 0; i <jsonCartas.length() ; i++) {
+                Card card = new Card();
+                JSONObject object = jsonCartas.getJSONObject(i);
+                card.setName(object.getString("name"));
+                card.setType(object.getString("type"));
+                carta.add(card);
+            }
+
+            return carta;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    ArrayList<Card> getCardsColor(String color) {
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendQueryParameter("colors", color)
+                .build();
+        String url = builtUri.toString();
+
+        try {
+            String JsonResponse = HttpUtils.get(url);
+            ArrayList<Card> carta = new ArrayList<>();
+
+            JSONObject data = new JSONObject(JsonResponse);
+            JSONArray jsonCartas = data.getJSONArray("cards");
+
+            for (int i = 0; i <jsonCartas.length() ; i++) {
+                Card card = new Card();
+                JSONObject object = jsonCartas.getJSONObject(i);
+                card.setName(object.getString("name"));
+                card.setColors(object.getString("colors"));
+                carta.add(card);
+            }
+
+            return carta;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

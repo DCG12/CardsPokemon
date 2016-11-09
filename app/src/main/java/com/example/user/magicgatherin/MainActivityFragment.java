@@ -43,16 +43,7 @@ public class MainActivityFragment extends Fragment {
 
         ListView lvCards = (ListView) view.findViewById(R.id.lvCards);
 
-        String[] data = {
-                                "Golem Ancestral",
-                                "Goblin pequeño",
-                                "Dragon de fuego",
-                                "Angel de luz",
-                                "Llamarada",
-                                "Espectro",
-         };
-
-        items = new ArrayList<>(Arrays.asList(data));
+        items = new ArrayList<>();
         adapter = new ArrayAdapter<>(
                 getContext(),
                 R.layout.lv_cards_row,
@@ -85,6 +76,13 @@ public class MainActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+        public void onStart() {
+                super.onStart();
+                refresh();
+            }
+
+
     private void refresh() {
         RefreshDataTask task = new RefreshDataTask();
         task.execute();
@@ -96,13 +94,14 @@ public class MainActivityFragment extends Fragment {
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String rarity = preferences.getString("rarity", "Rare");
+            String color = preferences.getString("colors", "White");
             String tipusConsulta = preferences.getString("tipus_consulta", "rareza");
             CardsAPI api = new CardsAPI();
-            ArrayList<Card> result = null;
+            ArrayList<Card> result;
             if (tipusConsulta.equals("rareza")) {
-                                result = api.getCardsRarity();
+                                result = api.getCardsRarity(rarity);
                             } else {
-                                result = api.getAllCards();
+                                result = api.getCardsColor(color);
                             }
 
             Log.d("DEBUG", result != null ? result.toString() : null);
@@ -117,7 +116,7 @@ public class MainActivityFragment extends Fragment {
 
             adapter.clear();
             for (int i = 0; i < carta.size(); i++) {
-                adapter.add(carta.get(i).getName() + "//" + carta.get(i).getRarity());
+                adapter.add(carta.get(i).getName() + " / " + carta.get(i).getRarity() + " / " + carta.get(i).getColors());
             }
         }
     }

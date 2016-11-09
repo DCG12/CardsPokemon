@@ -19,11 +19,11 @@
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_opcions_consulta_list_titles">
                 <item>Rareza</item>
-                <item>Todas las cartas</item>
+                <item>Color</item>
     </string-array>
         <string-array name="pref_opcions_consulta_list_values">
             <item>rareza</item>
-            <item>todas</item>
+            <item>color</item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->

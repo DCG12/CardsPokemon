@@ -11,13 +11,13 @@ public class Card {
     private String rarity;
     private String text;
     private String power;
-    private String[] colors;
+    private String colors;
 
-    public String[] getColors() {
+    public String getColors() {
         return colors;
     }
 
-    public void setColors(String[] colors) {
+    public void setColors(String colors) {
         this.colors = colors;
     }
 

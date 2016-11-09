@@ -179,6 +179,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("rarity"));
             bindPreferenceSummaryToValue(findPreference("tipus_consulta"));
+
         }
 
         @Override
