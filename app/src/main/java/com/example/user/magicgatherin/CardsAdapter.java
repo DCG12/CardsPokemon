@@ -39,7 +39,7 @@ public class CardsAdapter extends ArrayAdapter<Card> {
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         lvCardName.setText(card.getName());
-        lvCardType.setText("Tipo: " + card.getType() + "%");
+        lvCardType.setText("Tipo: " + card.getType() );
         Glide.with(getContext()).load(card.getPosterUrl()).into(ivPosterImage);
 
         // Retornem la View replena per a mostrarla
