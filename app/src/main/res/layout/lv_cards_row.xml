@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="5dp">
 
-    <TextView
-        android:id="@+id/tvCard"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
+    <ImageView
+        android:id="@+id/ivPosterImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:text="New Text"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"/>
-</android.support.constraint.ConstraintLayout>
+        android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="70dp"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/ivPosterImage"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/lvCardName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:hint="The Dark Knight"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lvCardType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/lvCardName"
+                android:layout_below="@+id/lvCardName"
+                android:hint="91%"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>

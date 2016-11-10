@@ -24,7 +24,7 @@ import android.content.SharedPreferences;
 public class MainActivityFragment extends Fragment {
 
     private ArrayList<Card> items;
-    private ArrayAdapter<Card> adapter;
+    private CardsAdapter adapter;
 
     public MainActivityFragment() {
     }
@@ -44,10 +44,9 @@ public class MainActivityFragment extends Fragment {
         ListView lvCards = (ListView) view.findViewById(R.id.lvCards);
 
         items = new ArrayList<>();
-        adapter = new ArrayAdapter<>(
+        adapter = new CardsAdapter(
                 getContext(),
                 R.layout.lv_cards_row,
-                R.id.tvCard,
                 items
         );
         lvCards.setAdapter(adapter);
