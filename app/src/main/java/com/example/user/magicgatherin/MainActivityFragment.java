@@ -128,13 +128,13 @@ public class MainActivityFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Card> carta) {
+        protected void onPostExecute(ArrayList<Card> card) {
 
-            super.onPostExecute(carta);
+            super.onPostExecute(card);
 
             adapter.clear();
-            for (int i = 0; i < carta.size(); i++) {
-                adapter.add(carta.get(i));
+            for (int i = 0; i < card.size(); i++) {
+                adapter.add(card.get(i));
             }
         }
     }

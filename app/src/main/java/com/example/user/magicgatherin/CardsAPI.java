@@ -65,6 +65,7 @@ public class CardsAPI {
                             card.setName(object.getString("name"));
                             card.setRarity(object.getString("rarity"));
                             card.setType(object.getString("type"));
+                            card.setPosterUrl(object.getString("imageUrl"));
                             carta.add(card);
                         }
 
@@ -96,6 +97,7 @@ public class CardsAPI {
                 JSONObject object = jsonCartas.getJSONObject(i);
                 card.setName(object.getString("name"));
                 card.setType(object.getString("type"));
+                card.setPosterUrl(object.getString("imageUrl"));
                 carta.add(card);
             }
 
@@ -128,6 +130,7 @@ public class CardsAPI {
                 card.setName(object.getString("name"));
                 card.setColors(object.getString("colors"));
                 card.setType(object.getString("type"));
+                card.setPosterUrl(object.getString("imageUrl"));
                 carta.add(card);
             }
 
