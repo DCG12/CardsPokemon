@@ -3,12 +3,15 @@ package com.example.user.magicgatherin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class DetailActivityFragment extends Fragment {
 
@@ -50,6 +53,12 @@ public class DetailActivityFragment extends Fragment {
                     lvCardColor = (TextView) view.findViewById(R.id.lvCardColor);
                     lvCardRarity = (TextView) view.findViewById(R.id.lvCardRatity);
                     lvCardText = (TextView) view.findViewById(R.id.lvCardText);
+
+                    lvCardNAme.setText(card.getName());
+                    lvCardType.setText(
+                            Html.fromHtml("<b>tipo:</b> " + card.getType() + ""));
+                    lvCardText.setText(Html.fromHtml("<b>Texto:</b> " + card.getText()));
+                    Glide.with(getContext()).load(card.getPosterUrl()).into(ivPosterImage);
     }
 }
 
