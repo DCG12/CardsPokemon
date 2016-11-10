@@ -1,10 +1,8 @@
 package com.example.user.magicgatherin;
 
-/**
- * Created by user on 04/11/2016.
- */
+import java.io.Serializable;
 
-public class Card {
+public class Card implements Serializable {
 
     private String name;
     private String type;

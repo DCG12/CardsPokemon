@@ -10,9 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:maxHeight="70dp"
-            android:scaleType="fitXY" />
+        android:adjustViewBounds="true"
+        android:maxHeight="70dp"
+        android:scaleType="fitXY"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,8 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:hint="The Dark Knight"
-                android:textSize="12sp"
+                android:hint="Golem Arcano"
                 android:textStyle="bold" />
 
             <TextView
@@ -38,6 +38,7 @@
                 android:layout_alignLeft="@+id/lvCardName"
                 android:layout_below="@+id/lvCardName"
                 android:hint="91%"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="12sp" />
 
         </RelativeLayout>
