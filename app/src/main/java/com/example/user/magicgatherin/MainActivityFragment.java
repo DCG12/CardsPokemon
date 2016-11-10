@@ -1,22 +1,26 @@
 package com.example.user.magicgatherin;
 
-import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import java.util.ArrayList;
-import java.util.Arrays;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.util.Log;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.content.SharedPreferences;
+import android.view.View;
+import android.view.ViewGroup;
+
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -49,7 +53,18 @@ public class MainActivityFragment extends Fragment {
                 R.layout.lv_cards_row,
                 items
         );
+
         lvCards.setAdapter(adapter);
+
+        lvCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Card card = (Card) adapterView.getItemAtPosition(i);
+
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+            }
+        });
 
         return view;
     }
