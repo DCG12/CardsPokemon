@@ -9,6 +9,7 @@ package com.example.user.magicgatherin;
  import android.view.ViewGroup;
  import android.widget.ImageView;
  import android.widget.TextView;
+ import com.bumptech.glide.Glide;
 
 
 public class CardsAdapter extends ArrayAdapter<Card> {
@@ -20,26 +21,28 @@ public class CardsAdapter extends ArrayAdapter<Card> {
     @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-                        // Obtenim l'objecte en la possició corresponent
-                                Card card = getItem(position);
-                Log.w("XXXX", card.toString());
+        // Obtenim l'objecte en la possició corresponent
+        Card card = getItem(position);
+        Log.w("XXXX", card.toString());
 
-                        // Mirem a veure si la View s'està reusant, si no es així "inflem" la View
-                                // https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView#row-view-recycling
-                                        if (convertView == null) {
-                        LayoutInflater inflater = LayoutInflater.from(getContext());
-                        convertView = inflater.inflate(R.layout.lv_cards_row, parent, false);
-                    }
+        // Mirem a veure si la View s'està reusant, si no es així "inflem" la View
+        // https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView#row-view-recycling
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.lv_cards_row, parent, false);
+        }
 
-                        // Unim el codi en les Views del Layout
-                                TextView lvCardName = (TextView) convertView.findViewById(R.id.lvCardName);
-                TextView lvCardType = (TextView) convertView.findViewById(R.id.lvCardType);
-                ImageView ivPosterImage = (ImageView) convertView.findViewById(R.id.ivPosterImage);
+        // Unim el codi en les Views del Layout
+        TextView lvCardName = (TextView) convertView.findViewById(R.id.lvCardName);
+        TextView lvCardType = (TextView) convertView.findViewById(R.id.lvCardType);
+        ImageView ivPosterImage = (ImageView) convertView.findViewById(R.id.ivPosterImage);
 
-                        // Fiquem les dades dels objectes (provinents del JSON) en el layout
-                                lvCardName.setText(card.getName());
-                lvCardType.setText("Tipo: " + card.getType() + "%");
+        // Fiquem les dades dels objectes (provinents del JSON) en el layout
+        lvCardName.setText(card.getName());
+        lvCardType.setText("Tipo: " + card.getType() + "%");
+        Glide.with(getContext()).load(card.getPosterUrl()).into(ivPosterImage);
 
-                        // Retornem la View replena per a mostrarla
-                                return convertView;
+        // Retornem la View replena per a mostrarla
+        return convertView;
+    }
 }

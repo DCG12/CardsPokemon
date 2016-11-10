@@ -12,6 +12,7 @@ public class Card {
     private String text;
     private String power;
     private String colors;
+    private String posterUrl;
 
     public String getColors() {
         return colors;
@@ -61,6 +62,14 @@ public class Card {
         this.type = type;
     }
 
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
+    }
+
     @Override
     public String toString() {
         return "Card{" +
@@ -70,6 +79,7 @@ public class Card {
                 ", text='" + text + '\'' +
                 ", power='" + power + '\'' +
                 ", colors='" + colors + '\'' +
+                ", posterUrl='" + posterUrl + '\'' +
                 '}';
     }
 }
