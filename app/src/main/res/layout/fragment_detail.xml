@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".DetailActivity">
+             tools:context="com.example.user.magicgatherin.DetailActivityFragment"
+             tools:showIn="@layout/activity_detail" >
 
             <!-- @drawable/large_movie_poster sourced from
               http://content8.flixster.com/movie/11/15/86/11158674_pro.jpg -->
@@ -79,4 +80,4 @@
                     app:layout_constraintRight_toRightOf="@+id/lvCardRarity"
                     app:layout_constraintTop_toBottomOf="@+id/lvCardRarity" />
             </android.support.constraint.ConstraintLayout>
-    </layout>
+
