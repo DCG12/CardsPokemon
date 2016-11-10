@@ -1,9 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/content_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.user.magicgatherin.MainActivity"
-        tools:showIn="@layout/activity_detail">
-</android.support.constraint.ConstraintLayout>
+        tools:context=".DetailActivity">
+
+    <!-- @drawable/large_movie_poster sourced from
++         http://content8.flixster.com/movie/11/15/86/11158674_pro.jpg -->
+        <ImageView
+            android:id="@+id/ivPosterImage"
+            android:layout_width="100dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="160dp"
+            android:scaleType="fitXY"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/lvCardName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Golem Arcano"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/ivPosterImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lvCardType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Instant"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lvCardName"
+            app:layout_constraintTop_toBottomOf="@+id/lvCardName" />
+
+        <TextView
+            android:id="@+id/lvCardColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="White"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/lvCardType"
+            app:layout_constraintTop_toBottomOf="@+id/lvCardType" />
+
+        <TextView
+            android:id="@+id/lvCardRatity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Common"
+            app:layout_constraintLeft_toLeftOf="@+id/lvCardColor"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPosterImage" />
+
+    <TextView
+            android:id="@+id/lvCardText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Ataca a sus enemigos con un rayo de luz"
+            app:layout_constraintLeft_toLeftOf="@+id/lvCardRatity"
+            app:layout_constraintRight_toRightOf="@+id/lvCardRatity"
+            app:layout_constraintTop_toBottomOf="@+id/lvCardRatity" />
+    </android.support.constraint.ConstraintLayout>
