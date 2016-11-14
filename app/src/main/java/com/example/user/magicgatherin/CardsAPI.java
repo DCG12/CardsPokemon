@@ -67,6 +67,8 @@ public class CardsAPI {
                             card.setType(object.getString("type"));
                             card.setPosterUrl(object.getString("imageUrl"));
                             card.setColors(object.getString("colors"));
+                            if(object.has("text")){
+                                card.setText(object.getString("text"));}
                             carta.add(card);
                         }
 
@@ -102,7 +104,8 @@ public class CardsAPI {
                 card.setType(object.getString("type"));
                 card.setPosterUrl(object.getString("imageUrl"));
                 card.setRarity(object.getString("rarity"));
-                //card.setText(object.getString("text"));
+                if(object.has("text")){
+                card.setText(object.getString("text"));}
                 carta.add(card);
             }
 
