@@ -32,6 +32,10 @@
                         android:name="android.support.PARENT_ACTIVITY"
                         android:value="com.example.user.magicgatherin.MainActivity" />
                 </activity>
+        <provider
+                    android:name=".CardContentProvider"
+                    android:authorities="${applicationId}.provider"
+                    android:exported="false" />
     </application>
 
 </manifest>

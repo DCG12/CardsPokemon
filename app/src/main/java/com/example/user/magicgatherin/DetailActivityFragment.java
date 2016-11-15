@@ -50,7 +50,7 @@ public class DetailActivityFragment extends Fragment {
                     binding.lvCardType.setText(
                             Html.fromHtml("<b>tipo:</b> " + card.getType() + ""));
                     binding.lvCardRarity.setText(card.getRarity());
-                    binding.lvCardText.setText(Html.fromHtml("<b>Synopsis:</b> " + card.getText()));
+                    binding.lvCardText.setText(Html.fromHtml("<b>Text:</b> " + card.getText()));
                     Glide.with(getContext()).load(card.getPosterUrl()).into(binding.ivPosterImage);
     }
 }
