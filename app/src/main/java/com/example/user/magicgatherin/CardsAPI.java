@@ -2,6 +2,7 @@ package com.example.user.magicgatherin;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class CardsAPI {
 
     private final String BASE_URL = "http://api.magicthegathering.io/v1/cards";
+    private final Integer LIMIT = 50;
 
                 ArrayList<Card> getAllCards(){
                 Uri builtUri = Uri.parse(BASE_URL)
