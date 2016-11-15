@@ -1,6 +1,7 @@
 package com.example.user.magicgatherin;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -8,20 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 
+import com.example.user.magicgatherin.databinding.FragmentDetailBinding;
+
 public class DetailActivityFragment extends Fragment {
 
-    private View view;
-    private ImageView ivPosterImage;
-    private TextView lvCardNAme;
-    private TextView lvCardType;
-    private TextView lvCardColor;
-    private TextView lvCardRarity;
-    private TextView lvCardText;
+
+    private FragmentDetailBinding binding;
 
     public DetailActivityFragment() {
     }
@@ -29,7 +26,9 @@ public class DetailActivityFragment extends Fragment {
     @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                      Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_detail, container, false);
+        binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_detail, container, false);
+        View view = binding.getRoot();
 
                         Intent i = getActivity().getIntent();
 
@@ -47,20 +46,12 @@ public class DetailActivityFragment extends Fragment {
                 private void updateUi(Card card) {
                 Log.d("CARD", card.toString());
 
-                    ivPosterImage = (ImageView) view.findViewById(R.id.ivPosterImage);
-                    lvCardNAme = (TextView) view.findViewById(R.id.lvCardName);
-                    lvCardType = (TextView) view.findViewById(R.id.lvCardType);
-                    lvCardColor = (TextView) view.findViewById(R.id.lvCardColor);
-                    lvCardRarity = (TextView) view.findViewById(R.id.lvCardRarity);
-                    lvCardText = (TextView) view.findViewById(R.id.lvCardText);
-
-                    lvCardNAme.setText(card.getName());
-                    lvCardColor.setText(card.getColors());
-                    lvCardType.setText(
+                    binding.lvCardName.setText(card.getName());
+                    binding.lvCardType.setText(
                             Html.fromHtml("<b>tipo:</b> " + card.getType() + ""));
-                    lvCardRarity.setText(card.getRarity());
-                    lvCardText.setText(Html.fromHtml("<b>Texto:</b> " + card.getText()));
-                    Glide.with(getContext()).load(card.getPosterUrl()).into(ivPosterImage);
+                    binding.lvCardRarity.setText(card.getRarity());
+                    binding.lvCardText.setText(Html.fromHtml("<b>Synopsis:</b> " + card.getText()));
+                    Glide.with(getContext()).load(card.getPosterUrl()).into(binding.ivPosterImage);
     }
 }
 

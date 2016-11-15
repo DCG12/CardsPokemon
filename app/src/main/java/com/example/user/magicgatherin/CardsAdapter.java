@@ -1,15 +1,18 @@
 package com.example.user.magicgatherin;
 
  import android.content.Context;
+ import android.databinding.DataBindingUtil;
  import android.widget.ArrayAdapter;
  import java.util.List;
  import android.util.Log;
  import android.view.LayoutInflater;
  import android.view.View;
  import android.view.ViewGroup;
- import android.widget.ImageView;
- import android.widget.TextView;
+
+
  import com.bumptech.glide.Glide;
+
+ import com.example.user.magicgatherin.databinding.LvCardsRowBinding;
 
 
 public class CardsAdapter extends ArrayAdapter<Card> {
@@ -25,24 +28,28 @@ public class CardsAdapter extends ArrayAdapter<Card> {
         Card card = getItem(position);
         Log.w("XXXX", card.toString());
 
+        LvCardsRowBinding binding = null;
+
         // Mirem a veure si la View s'està reusant, si no es així "inflem" la View
         // https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView#row-view-recycling
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.lv_cards_row, parent, false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.lv_cards_row, parent, false);
+                    } else {
+                        binding = DataBindingUtil.getBinding(convertView);
         }
 
         // Unim el codi en les Views del Layout
-        TextView lvCardName = (TextView) convertView.findViewById(R.id.lvCardName);
-        TextView lvCardType = (TextView) convertView.findViewById(R.id.lvCardType);
-        ImageView ivPosterImage = (ImageView) convertView.findViewById(R.id.ivPosterImage);
+
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
-        lvCardName.setText(card.getName());
-        lvCardType.setText("Tipo: " + card.getType() );
-        Glide.with(getContext()).load(card.getPosterUrl()).into(ivPosterImage);
+
+
+        binding.lvCardName.setText(card.getName());
+        binding.lvCardType.setText("tipo: " + card.getType());
+        Glide.with(getContext()).load(card.getPosterUrl()).into(binding.ivPosterImage);
 
         // Retornem la View replena per a mostrarla
-        return convertView;
+        return binding.getRoot();
     }
 }
