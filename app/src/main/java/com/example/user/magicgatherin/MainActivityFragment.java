@@ -3,6 +3,7 @@ package com.example.user.magicgatherin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import nl.littlerobots.cupboard.tools.provider.UriHelper;
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 import com.example.user.magicgatherin.databinding.FragmentDetailBinding;
 import com.example.user.magicgatherin.databinding.FragmentMainBinding;
@@ -109,9 +113,9 @@ public class MainActivityFragment extends Fragment {
         task.execute();
 
     }
-    private class RefreshDataTask extends AsyncTask<Void, Object, ArrayList<Card>> {
+    private class RefreshDataTask extends AsyncTask<Void, Object, Void> {
         @Override
-        protected ArrayList<Card> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String rarity = preferences.getString("rarity", "Rare");
@@ -127,18 +131,11 @@ public class MainActivityFragment extends Fragment {
 
             Log.d("DEBUG", result != null ? result.toString() : null);
 
-            return result;
-        }
+        UriHelper helper = UriHelper.with(CardContentProvider.AUTHORITY);
+        Uri cardUri = helper.getUri(Card.class);
+        cupboard().withContext(getContext()).put(cardUri, Card.class, result);
 
-        @Override
-        protected void onPostExecute(ArrayList<Card> card) {
-
-            super.onPostExecute(card);
-
-            adapter.clear();
-            for (int i = 0; i < card.size(); i++) {
-                adapter.add(card.get(i));
-            }
+            return null;
         }
     }
 }
