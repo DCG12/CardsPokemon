@@ -3,12 +3,14 @@ package com.example.user.magicgatherin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,9 +25,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import nl.littlerobots.cupboard.tools.provider.UriHelper;
-import static nl.qbusict.cupboard.CupboardFactory.cupboard;
-
 import com.example.user.magicgatherin.databinding.FragmentDetailBinding;
 import com.example.user.magicgatherin.databinding.FragmentMainBinding;
 
@@ -33,10 +32,10 @@ import com.example.user.magicgatherin.databinding.FragmentMainBinding;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private ArrayList<Card> items;
-    private CardsAdapter adapter;
+
+    private CardsCursorAdapter adapter;
 
     public MainActivityFragment() {
     }
@@ -53,14 +52,10 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentMainBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_main, container, false);
+
         View view = binding.getRoot();
 
-        items = new ArrayList<>();
-        adapter = new CardsAdapter(
-                getContext(),
-                R.layout.lv_cards_row,
-                items
-        );
+        adapter = new CardsCursorAdapter(getContext(), Card.class);
 
         binding.lvCards.setAdapter(adapter);
         binding.lvCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,6 +71,8 @@ public class MainActivityFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        getLoaderManager().initLoader(0, null, this);
 
         return view;
     }
@@ -113,6 +110,23 @@ public class MainActivityFragment extends Fragment {
         task.execute();
 
     }
+
+    @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                return DataManager.getCursorLoader(getContext());
+            }
+
+                @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                adapter.swapCursor(data);
+            }
+
+                @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+                adapter.swapCursor(null);
+            }
+
+
     private class RefreshDataTask extends AsyncTask<Void, Object, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -131,9 +145,8 @@ public class MainActivityFragment extends Fragment {
 
             Log.d("DEBUG", result != null ? result.toString() : null);
 
-        UriHelper helper = UriHelper.with(CardContentProvider.AUTHORITY);
-        Uri cardUri = helper.getUri(Card.class);
-        cupboard().withContext(getContext()).put(cardUri, Card.class, result);
+            DataManager.deleteCards(getContext());
+            DataManager.saveCards(result, getContext());
 
             return null;
         }
