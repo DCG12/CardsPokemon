@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class CardsAPI {
 
-    private final String BASE_URL = "http://api.magicthegathering.io/v1/cards";
-    private final Integer LIMIT = 50;
+    private static String BASE_URL = "http://api.magicthegathering.io/v1/cards";
+    private static Integer LIMIT = 50;
 
-                ArrayList<Card> getAllCards(){
+                static    ArrayList<Card> getAllCards(){
                 Uri builtUri = Uri.parse(BASE_URL)
                                 .buildUpon()
                                 .build();
@@ -47,7 +47,7 @@ public class CardsAPI {
                 return null;
             }
 
-                ArrayList<Card> getCardsRarity(String rareza) {
+                   static ArrayList<Card> getCardsRarity(String rareza) {
                     Uri builtUri = Uri.parse(BASE_URL)
                             .buildUpon()
                             .appendQueryParameter("rarity", rareza)
@@ -84,7 +84,7 @@ public class CardsAPI {
             }
 
 
-    ArrayList<Card> getCardsColor(String color) {
+        static ArrayList<Card> getCardsColor(String color) {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendQueryParameter("colors", color)

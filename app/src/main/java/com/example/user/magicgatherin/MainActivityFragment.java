@@ -117,12 +117,12 @@ public class MainActivityFragment extends Fragment {
             String rarity = preferences.getString("rarity", "Rare");
             String color = preferences.getString("colors", "White");
             String tipusConsulta = preferences.getString("tipus_consulta", "rareza");
-            CardsAPI api = new CardsAPI();
+
             ArrayList<Card> result;
             if (tipusConsulta.equals("rareza")) {
-                                result = api.getCardsRarity(rarity);
+                                result = CardsAPI.getCardsRarity(rarity);
                             } else {
-                                result = api.getCardsColor(color);
+                                result = CardsAPI.getCardsColor(color);
                             }
 
             Log.d("DEBUG", result != null ? result.toString() : null);
