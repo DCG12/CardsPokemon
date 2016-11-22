@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +36,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
 
     private CardsCursorAdapter adapter;
+    private ProgressDialog dialog;
 
     public MainActivityFragment() {
     }
@@ -56,6 +57,9 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         View view = binding.getRoot();
 
         adapter = new CardsCursorAdapter(getContext(), Card.class);
+
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Loading...");
 
         binding.lvCards.setAdapter(adapter);
         binding.lvCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,7 +105,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
         public void onStart() {
                 super.onStart();
-                refresh();
+
             }
 
 
@@ -128,6 +132,14 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
 
     private class RefreshDataTask extends AsyncTask<Void, Object, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            dialog.show();
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
 
@@ -149,6 +161,13 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             DataManager.saveCards(result, getContext());
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
         }
     }
 }
