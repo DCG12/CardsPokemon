@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import com.alexvasilkov.events.Events;
 
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -68,17 +69,26 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
                 Card card = (Card) adapterView.getItemAtPosition(i);
 
-                Intent intent = new Intent(getContext(), DetailActivity.class);
+                if (!esTablet()) {
+                    Intent intent = new Intent(getContext(), DetailActivity.class);
 
-                intent.putExtra("card", card);
+                    intent.putExtra("card", card);
 
-                startActivity(intent);
+                    startActivity(intent);
+
+                } else {
+                    Events.create("card-selected").param(card).post();
+                }
             }
         });
 
         getLoaderManager().initLoader(0, null, this);
 
         return view;
+    }
+
+    boolean esTablet() {
+        return getResources().getBoolean(R.bool.tablet);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

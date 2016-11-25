@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.alexvasilkov.events.Events;
 
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,13 @@ public class DetailActivityFragment extends Fragment {
     private FragmentDetailBinding binding;
 
     public DetailActivityFragment() {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Events.register(this);
     }
 
     @Override
@@ -41,6 +49,11 @@ public class DetailActivityFragment extends Fragment {
                     }
 
                         return view;
+            }
+
+    @Events.Subscribe("card-selected")
+        private void onMovieSelected(Card card) {
+                updateUi(card);
             }
 
                 private void updateUi(Card card) {
