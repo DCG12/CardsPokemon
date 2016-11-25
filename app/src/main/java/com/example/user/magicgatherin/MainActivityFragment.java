@@ -57,10 +57,10 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         View view = binding.getRoot();
 
         adapter = new CardsCursorAdapter(getContext(), Card.class);
-
+        /*
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
-
+        */
         binding.lvCards.setAdapter(adapter);
         binding.lvCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -132,13 +132,13 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
 
     private class RefreshDataTask extends AsyncTask<Void, Object, Void> {
-
+        /*
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
             dialog.show();
-        }
+        }*/
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -162,12 +162,12 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
             return null;
         }
-
+        /*
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
             dialog.dismiss();
-        }
+        }*/
     }
 }
