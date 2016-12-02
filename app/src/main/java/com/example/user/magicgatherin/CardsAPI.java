@@ -22,14 +22,13 @@ class CardsAPI {
                 .buildUpon()
                 .build();
         String url = builtUri.toString();
-
         return doCall(url);
     }*/
 
     static ArrayList<Card> getCardsRarity(String rareza) {
+
         String url = getUrlRareza("rarity", rareza);
         Log.d("URL", url);
-
 
         return doCall(url);
     }
@@ -60,33 +59,45 @@ class CardsAPI {
                 .build();
         return builtUri.toString();
     }
+
+    private static String getUrlPage(int page) {
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendQueryParameter("page", String.valueOf(page))
+                .build();
+        return builtUri.toString();
+    }
+
     @Nullable
-        private static ArrayList doCall(String url) {
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            ArrayList<Card> carta = new ArrayList<>();
+    private static ArrayList doCall(String url) {
+        for (int i = 0; i < PAGES; i++) {
+            try {
+                String JsonResponse = HttpUtils.get(url);
+                ArrayList<Card> carta = new ArrayList<>();
 
-            JSONObject data = new JSONObject(JsonResponse);
-            JSONArray jsonCartas = data.getJSONArray("cards");
+                JSONObject data = new JSONObject(JsonResponse);
+                JSONArray jsonCartas = data.getJSONArray("cards");
 
-            for (int i = 0; i <jsonCartas.length() ; i++) {
-                Card card = new Card();
-                JSONObject object = jsonCartas.getJSONObject(i);
-                card.setName(object.getString("name"));
-                card.setColors(object.getString("colors"));
-                card.setType(object.getString("type"));
-                card.setPosterUrl(object.getString("imageUrl"));
-                card.setRarity(object.getString("rarity"));
-                if(object.has("text")){
-                    card.setText(object.getString("text"));}
-                carta.add(card);
+                for (int e = 0; e < jsonCartas.length(); e++) {
+                    Card card = new Card();
+                    JSONObject object = jsonCartas.getJSONObject(e);
+                    card.setName(object.getString("name"));
+                    card.setColors(object.getString("colors"));
+                    card.setType(object.getString("type"));
+                    card.setPosterUrl(object.getString("imageUrl"));
+                    card.setRarity(object.getString("rarity"));
+                    if (object.has("text")) {
+                        card.setText(object.getString("text"));
+                    }
+                    carta.add(card);
+                }
+
+                return carta;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-            return carta;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
         return null;
     }
