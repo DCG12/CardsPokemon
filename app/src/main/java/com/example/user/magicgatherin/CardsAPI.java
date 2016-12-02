@@ -15,37 +15,51 @@ class CardsAPI {
 
     private static String BASE_URL = "http://api.magicthegathering.io/v1/cards";
     private static Integer LIMIT = 50;
+    private static final int PAGES = 10;
 
-    static ArrayList<Card> getAllCards(){
+    /*static ArrayList<Card> getAllCards(){
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .build();
         String url = builtUri.toString();
 
         return doCall(url);
-    }
+    }*/
 
     static ArrayList<Card> getCardsRarity(String rareza) {
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendQueryParameter("rarity", rareza)
-                .build();
-        String url = builtUri.toString();
+        String url = getUrlRareza("rarity", rareza);
+        Log.d("URL", url);
+
 
         return doCall(url);
     }
 
 
     static ArrayList<Card> getCardsColor(String color) {
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendQueryParameter("colors", color)
-                .build();
-        String url = builtUri.toString();
+
+        String url = getUrlColor("colors", color);
+        Log.d("URL", url);
 
         return doCall(url);
     }
 
+    private static String getUrlColor(String colors, String color) {
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendQueryParameter("colors", color)
+                .appendQueryParameter("limit", LIMIT.toString())
+                .build();
+        return builtUri.toString();
+    }
+
+    private static String getUrlRareza(String rarity, String rareza) {
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendQueryParameter("rarity", rareza)
+                .appendQueryParameter("limit", LIMIT.toString())
+                .build();
+        return builtUri.toString();
+    }
     @Nullable
         private static ArrayList doCall(String url) {
         try {

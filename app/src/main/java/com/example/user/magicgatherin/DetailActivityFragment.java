@@ -52,7 +52,7 @@ public class DetailActivityFragment extends Fragment {
             }
 
     @Events.Subscribe("card-selected")
-        private void onMovieSelected(Card card) {
+        private void onCardSelected(Card card) {
                 updateUi(card);
             }
 
