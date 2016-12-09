@@ -1,5 +1,6 @@
 package com.example.user.magicgatherin;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -120,7 +121,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
 
     private void refresh() {
-        RefreshDataTask task = new RefreshDataTask();
+        RefreshDataTask task = new RefreshDataTask(getActivity().getApplicationContext());
         task.execute();
 
     }
@@ -142,6 +143,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
 
     private class RefreshDataTask extends AsyncTask<Void, Object, Void> {
+        public RefreshDataTask(Context applicationContext) {
+        }
         /*
         @Override
         protected void onPreExecute() {
